@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Kelompok;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -46,9 +47,13 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
 
+
     public function index()
     {
         $users = User::all(); // Mengambil semua data user
-        return view('users.index', compact('users')); // Menampilkan view 'users.index' dengan data users
+        $kelompoks = Kelompok::all(); // Mengambil data kelompok
+
+        // Kirim data user dan kelompok ke view
+        return view('users.index', compact('users', 'kelompoks'));
     }
 }

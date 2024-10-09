@@ -1,12 +1,42 @@
-<!-- resources/views/events/index.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event List</title>
+    <style>
+        /* Gaya sederhana untuk navbar */
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+    </style>
 </head>
 <body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="{{ route('events.index') }}">Events</a>
+        <a href="{{ route('users.index') }}">Users</a>
+    </div>
+
     <h1>List of Events</h1>
 
     @if(session('success'))
