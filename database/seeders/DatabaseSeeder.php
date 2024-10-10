@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             DesaSeeder::class,     // Seeder untuk mengisi tabel desa
             KelompokSeeder::class, // Seeder untuk mengisi tabel kelompok
+            UserSeeder::class,     // Seeder untuk mengisi tabel user
         ]);
     }
 }

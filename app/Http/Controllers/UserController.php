@@ -53,7 +53,9 @@ class UserController extends Controller
         $users = User::all(); // Mengambil semua data user
         $kelompoks = Kelompok::all(); // Mengambil data kelompok
 
+        $groupedUsers = $users->groupBy('kelompok_id');
+
         // Kirim data user dan kelompok ke view
-        return view('users.index', compact('users', 'kelompoks'));
+        return view('users.index', compact('users', 'groupedUsers', 'kelompoks'));
     }
 }

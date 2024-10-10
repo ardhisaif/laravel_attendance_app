@@ -26,6 +26,16 @@ class PresenceController extends Controller
             'description' => 'nullable|string|max:255',
         ]);
 
+        // Cek apakah sudah ada kehadiran untuk user dan event ini
+        $existingPresence = Presence::where('user_id', $request->user_id)
+            ->where('event_id', $event->id)
+            ->first();
+
+        if ($existingPresence) {
+            // Jika sudah ada, kirimkan error
+            return redirect()->back()->withErrors(['error' => 'User has already recorded attendance for this event.']);
+        }
+
         Presence::create([
             'user_id' => $request->user_id,
             'event_id' => $event->id,

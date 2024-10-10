@@ -37,7 +37,7 @@
         <a href="{{ route('users.index') }}">Users</a>
     </div>
 
-    <h2>Create User</h2>
+    <h1>Create User</h1>
     <form action="{{ route('users.store') }}" method="POST">
         @csrf
         <label for="name">Name:</label>
@@ -52,8 +52,20 @@
             @endforeach
         </select><br><br>
 
+        <label>Gender:</label><br>
+        <input type="radio" id="male" name="gender" value="1" required>
+        <label for="male">Male</label><br>
+        <input type="radio" id="female" name="gender" value="2" required>
+        <label for="female">Female</label><br><br>
+
         <label for="category_of_age">Category of Age:</label>
-        <input type="number" id="category_of_age" name="category_of_age" required><br><br>
+        <select type="number" id="category_of_age" name="category_of_age" required>
+            <option value="1">Caberawit</option>
+            <option value="2">Pra-remaja</option>
+            <option value="3">Remaja</option>
+            <option value="4">Usia Nikah</option>
+            <option value="5">Umum</option>
+        </select><br><br>
 
         <label for="date_of_birth">Date of Birth:</label>
         <input type="date" id="date_of_birth" name="date_of_birth" required><br><br>
@@ -79,12 +91,15 @@
         </div>
     @endif
 
-    <h1>List of Users</h1>
+    <h2>List of Users</h2>
 
-    <ul>
-        @foreach($users as $user)
-            <li>{{ $user->name }} - {{ $user->email }}</li>
-        @endforeach
-    </ul>
+    @foreach($groupedUsers as $kelompokId => $users)
+        <h3>Group: {{ $kelompoks->where('id', $kelompokId)->first()->name }}</h3>
+        <ul>
+            @foreach($users as $user)
+                <li>{{ $user->name }} - {{ $user->email }}</li>
+            @endforeach
+        </ul>
+    @endforeach
 </body>
 </html>
