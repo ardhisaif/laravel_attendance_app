@@ -60,10 +60,10 @@
 
         <label for="category_of_age">Category of Age:</label>
         <select type="number" id="category_of_age" name="category_of_age" required>
-            <option value="1">Caberawit</option>
+            <option value="4">Usia Nikah</option>
             <option value="2">Pra-remaja</option>
             <option value="3">Remaja</option>
-            <option value="4">Usia Nikah</option>
+            <option value="1">Caberawit</option>
             <option value="5">Umum</option>
         </select><br><br>
 

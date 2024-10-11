@@ -5,82 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Presence for {{ $event->name }}</title>
     <style>
-        /* Gaya sederhana untuk navbar */
-        .navbar {
-            background-color: #333;
-            overflow: hidden;
-            margin-bottom: 20px; /* Tambahkan margin bawah untuk navbar */
-        }
-
-        .navbar a {
-            float: left;
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 20px;
-            text-decoration: none;
-        }
-
-        .navbar a:hover {
-            background-color: #ddd;
-            color: black;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px; /* Tambahkan margin global untuk seluruh body */
-        }
-
-        h1, h2 {
-            margin-bottom: 20px; /* Tambahkan margin bawah untuk heading */
-        }
-
-        form {
-            margin-bottom: 40px; /* Tambahkan jarak bawah antara form dan list */
-        }
-
-        label, select, input {
-            display: block;
-            margin-bottom: 10px; /* Tambahkan margin bawah untuk elemen form */
-            padding: 8px; /* Padding pada elemen form */
-        }
-
-        /* Background style untuk status */
-        .status-hadir {
-            background-color: rgb(139, 255, 139);
-            color: rgb(0, 0, 0);
-            padding: 5px;
-            border-radius: 3px;
-            margin-bottom: 10px; /* Tambahkan margin bawah untuk setiap status */
-        }
-
-        .status-izin {
-            background-color: rgb(255, 255, 61);
-            color: rgb(0, 0, 0);
-            padding: 5px;
-            border-radius: 3px;
-            margin-bottom: 10px;
-        }
-
-        .status-sakit {
-            background-color: rgb(255, 188, 64);
-            color: rgb(0, 0, 0);
-            padding: 5px;
-            border-radius: 3px;
-            margin-bottom: 10px;
-        }
-
-        ul {
-            list-style-type: none; /* Hapus bullet points */
-            padding: 0; /* Hapus padding default pada ul */
-        }
-
-        li {
-            margin-bottom: 15px; /* Tambahkan margin bawah antara list items */
-            padding: 10px;
-            border: 1px solid #ddd; /* Border untuk setiap list item */
-            border-radius: 5px; /* Sedikit border radius untuk tampilan rapi */
-        }
+        /* Gaya navbar dan form tetap sama */
+        .navbar { background-color: #333; overflow: hidden; margin-bottom: 20px; }
+        .navbar a { float: left; display: block; color: white; text-align: center; padding: 14px 20px; text-decoration: none; }
+        .navbar a:hover { background-color: #ddd; color: black; }
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1, h2 { margin-bottom: 20px; }
+        form { margin-bottom: 40px; }
+        label, select, input { display: block; margin-bottom: 10px; padding: 8px; }
+        .status-hadir, .status-izin, .status-sakit { padding: 5px; border-radius: 3px; margin-bottom: 10px; }
+        .status-hadir { background-color: rgb(139, 255, 139); }
+        .status-izin { background-color: rgb(255, 255, 61); }
+        .status-sakit { background-color: rgb(255, 188, 64); }
+        ul { list-style-type: none; padding: 0; }
+        li { margin-bottom: 15px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
     </style>
 </head>
 <body>
@@ -94,11 +32,19 @@
     <h2>Record Attendance</h2>
     <form action="{{ route('presences.store', $event->id) }}" method="POST">
         @csrf
+        <!-- Filter Kelompok -->
+        <label for="kelompok_id">Select Kelompok:</label>
+        <select name="kelompok_id" id="kelompok_id" required>
+            <option value="">-- Select Kelompok --</option>
+            @foreach($kelompoks as $kelompok)
+                <option value="{{ $kelompok->id }}">{{ $kelompok->name }}</option>
+            @endforeach
+        </select>
+
+        <!-- Select Nama User (dengan pencarian) -->
         <label for="user_id">Select User:</label>
         <select name="user_id" id="user_id" required>
-            @foreach(\App\Models\User::all() as $user)
-                <option value="{{ $user->id }}">{{ $user->name }}</option>
-            @endforeach
+            <!-- User options akan diisi dengan JavaScript -->
         </select>
 
         <label for="status">Status:</label>
@@ -146,5 +92,30 @@
         </div>
     @endif
 
+    <!-- Tambahkan script untuk filter dan search -->
+    <script>
+        document.getElementById('kelompok_id').addEventListener('change', function() {
+            var kelompokId = this.value;
+
+            // Hapus user options sebelumnya
+            var userSelect = document.getElementById('user_id');
+            userSelect.innerHTML = '<option value="">-- Select User --</option>';
+
+            // Buat permintaan AJAX ke server untuk mendapatkan daftar users berdasarkan kelompok
+            if(kelompokId) {
+                fetch(`/get-users-by-kelompok/${kelompokId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Tambahkan user options ke dropdown
+                        data.forEach(user => {
+                            var option = document.createElement('option');
+                            option.value = user.id;
+                            option.text = user.name;
+                            userSelect.appendChild(option);
+                        });
+                    });
+            }
+        });
+    </script>
 </body>
 </html>

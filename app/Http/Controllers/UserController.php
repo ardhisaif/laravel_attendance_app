@@ -58,4 +58,14 @@ class UserController extends Controller
         // Kirim data user dan kelompok ke view
         return view('users.index', compact('users', 'groupedUsers', 'kelompoks'));
     }
+
+    public function getUsersByKelompok($kelompok_id)
+    {
+        // Dapatkan user berdasarkan kelompok yang dipilih
+        $users = User::where('kelompok_id', $kelompok_id)->get();
+
+        // Kembalikan dalam format JSON agar bisa diproses oleh JavaScript
+        return response()->json($users);
+    }
+
 }

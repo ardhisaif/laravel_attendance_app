@@ -41,4 +41,39 @@ class EventController extends Controller
 
         return redirect()->route('events.index')->with('success', 'Event created successfully.');
     }
+
+    // Menampilkan form untuk mengedit event
+    public function edit($id)
+    {
+        $event = Event::findOrFail($id);
+        return view('events.edit', compact('event'));
+    }
+
+    // Proses update event
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required',
+            'category_of_age' => 'required',
+            'date' => 'required|date',
+        ]);
+
+        $event = Event::findOrFail($id);
+        $event->update([
+            'name' => $request->name,
+            'category_of_age' => $request->category_of_age,
+            'date' => $request->date,
+        ]);
+
+        return redirect('/')->with('success', 'Event updated successfully');
+    }
+
+    // Menghapus event
+    public function destroy($id)
+    {
+        $event = Event::findOrFail($id);
+        $event->delete();
+
+        return redirect()->route('events.index')->with('success', 'Event deleted successfully');
+    }
 }

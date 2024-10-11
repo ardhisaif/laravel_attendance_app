@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Presence;
 use App\Models\Event;
+use App\Models\Kelompok;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -13,8 +14,9 @@ class PresenceController extends Controller
     public function index(Event $event)
     {
         $presences = Presence::where('event_id', $event->id)->with('user')->get();
+        $kelompoks = Kelompok::all();
 
-        return view('presences.index', compact('presences', 'event'));
+        return view('presences.index', compact('presences', 'event', 'kelompoks'));
     }
 
     // Menyimpan data presensi

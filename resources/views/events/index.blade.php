@@ -28,6 +28,15 @@
         body {
             font-family: Arial, sans-serif;
         }
+
+        .event-actions {
+            display: inline-block;
+            margin-left: 20px;
+        }
+
+        button {
+            margin: 0 5px;
+        }
     </style>
 </head>
 <body>
@@ -47,6 +56,18 @@
         @foreach($events as $event)
             <li>
                 <a href="{{ route('events.show', $event->id) }}">{{ $event->name }} - {{ $event->date }}</a>
+
+                <!-- Edit button -->
+                <a href="{{ route('events.edit', $event->id) }}" class="event-actions">
+                    <button type="button">Edit</button>
+                </a>
+
+                <!-- Delete form -->
+                <form action="{{ route('events.destroy', $event->id) }}" method="POST" class="event-actions">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" onclick="return confirm('Are you sure you want to delete this event?')">Delete</button>
+                </form>
             </li>
         @endforeach
     </ul>
