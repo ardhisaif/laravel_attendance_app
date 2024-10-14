@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\Presence;
+use App\Models\Kelompok;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -18,8 +19,9 @@ class EventController extends Controller
     {
         // Ambil semua data absensi yang terkait dengan event
         $presences = Presence::where('event_id', $event->id)->get();
+        $kelompoks = Kelompok::all();
 
-        return view('presences.index', compact('event', 'presences'));
+        return view('presences.index', compact('event', 'presences', 'kelompoks'));
     }
 
     // Menyimpan event baru

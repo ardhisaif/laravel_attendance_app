@@ -4,31 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Management</title>
-    <style>
-        /* Gaya sederhana untuk navbar */
-        .navbar {
-            background-color: #333;
-            overflow: hidden;
-        }
 
-        .navbar a {
-            float: left;
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 20px;
-            text-decoration: none;
-        }
-
-        .navbar a:hover {
-            background-color: #ddd;
-            color: black;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-        }
-    </style>
+    <!-- Hubungkan dengan file CSS eksternal -->
+    <link rel="stylesheet" type="" href="{{ asset('css/styles.css') }}">
 </head>
 <body>
     <!-- Navbar -->
@@ -38,7 +16,7 @@
     </div>
 
     <h1>Create User</h1>
-    <form action="{{ route('users.store') }}" method="POST">
+    <form action="{{ route('users.store') }}" method="POST" class="event-form">
         @csrf
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required><br><br>
@@ -53,10 +31,15 @@
         </select><br><br>
 
         <label>Gender:</label><br>
-        <input type="radio" id="male" name="gender" value="1" required>
-        <label for="male">Male</label><br>
-        <input type="radio" id="female" name="gender" value="2" required>
-        <label for="female">Female</label><br><br>
+        <label class="container">Male
+            <input type="radio" id="male" name="gender" value="1" required>
+            <span class="checkmark"></span>
+        </label>
+        <label class="container">Female
+            <input type="radio" id="female" name="gender" value="2" required>
+            <span class="checkmark"></span>
+        </label>
+
 
         <label for="category_of_age">Category of Age:</label>
         <select type="number" id="category_of_age" name="category_of_age" required>
@@ -92,14 +75,18 @@
     @endif
 
     <h2>List of Users</h2>
+    <div class="user-list">
+        @foreach($groupedUsers as $kelompokId => $users)
+            <h3>Group: {{ $kelompoks->where('id', $kelompokId)->first()->name }}</h3>
+            <ul>
+                @foreach($users as $user)
+                    <li>
+                        {{ $user->name }} <span>- {{ $user->email }}</span>
+                    </li>
+                @endforeach
+            </ul>
+        @endforeach
+    </div>
 
-    @foreach($groupedUsers as $kelompokId => $users)
-        <h3>Group: {{ $kelompoks->where('id', $kelompokId)->first()->name }}</h3>
-        <ul>
-            @foreach($users as $user)
-                <li>{{ $user->name }} - {{ $user->email }}</li>
-            @endforeach
-        </ul>
-    @endforeach
 </body>
 </html>

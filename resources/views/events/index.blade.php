@@ -4,40 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event List</title>
-    <style>
-        /* Gaya sederhana untuk navbar */
-        .navbar {
-            background-color: #333;
-            overflow: hidden;
-        }
-
-        .navbar a {
-            float: left;
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 20px;
-            text-decoration: none;
-        }
-
-        .navbar a:hover {
-            background-color: #ddd;
-            color: black;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        .event-actions {
-            display: inline-block;
-            margin-left: 20px;
-        }
-
-        button {
-            margin: 0 5px;
-        }
-    </style>
+    <!-- Menghubungkan dengan file CSS eksternal -->
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 </head>
 <body>
     <!-- Navbar -->
@@ -49,31 +17,34 @@
     <h1>List of Events</h1>
 
     @if(session('success'))
-        <p style="color:green">{{ session('success') }}</p>
+        <p class="success-message">{{ session('success') }}</p>
     @endif
 
-    <ul>
+    <ul class="event-list">
         @foreach($events as $event)
             <li>
-                <a href="{{ route('events.show', $event->id) }}">{{ $event->name }} - {{ $event->date }}</a>
+                <a href="{{ route('events.show', $event->id) }}" class="event-name">{{ $event->name }} - {{ $event->date }}</a>
 
-                <!-- Edit button -->
-                <a href="{{ route('events.edit', $event->id) }}" class="event-actions">
-                    <button type="button">Edit</button>
-                </a>
+                <!-- Edit dan Delete button berada dalam div agar rapi -->
+                <div class="event-actions">
+                    <a href="{{ route('events.edit', $event->id) }}">
+                        <button type="button" class="btn-edit">Edit</button>
+                    </a>
 
-                <!-- Delete form -->
-                <form action="{{ route('events.destroy', $event->id) }}" method="POST" class="event-actions">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" onclick="return confirm('Are you sure you want to delete this event?')">Delete</button>
-                </form>
+                    <form action="{{ route('events.destroy', $event->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn-delete" onclick="return confirm('Are you sure you want to delete this event?')">Delete</button>
+                    </form>
+                </div>
             </li>
         @endforeach
     </ul>
 
+    <br/>
+
     <h2>Create New Event</h2>
-    <form action="{{ route('events.store') }}" method="POST">
+    <form action="{{ route('events.store') }}" method="POST" class="event-form">
         @csrf
         <label for="name">Event Name:</label>
         <input type="text" id="name" name="name" required><br><br>
@@ -90,7 +61,7 @@
         <label for="date">Date:</label>
         <input type="date" id="date" name="date" required><br><br>
 
-        <button type="submit">Create Event</button>
+        <button type="submit" class="btn-create">Create Event</button>
     </form>
 </body>
 </html>
