@@ -68,4 +68,44 @@ class UserController extends Controller
         return response()->json($users);
     }
 
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        return view('users.show', compact('user'));
+    }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+    }
+
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        $kelompoks = Kelompok::all(); // Ambil semua kelompok untuk dropdown
+        return view('users.edit', compact('user', 'kelompoks'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        // Validasi input dari form
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'kelompok_id' => 'required|exists:kelompok,id',
+            'category_of_age' => 'required|integer',
+            'date_of_birth' => 'nullable|date',
+        ]);
+
+        // Temukan user berdasarkan ID dan update datanya
+        $user = User::findOrFail($id);
+        $user->update($request->all());
+
+        // Redirect ke halaman detail atau list dengan pesan sukses
+        return redirect()->route('users.show', $user->id)->with('success', 'User updated successfully.');
+    }
+
+
 }

@@ -30,6 +30,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function kelompok()
+    {
+        return $this->belongsTo(Kelompok::class, 'kelompok_id'); // Pastikan nama kelas dan kolom foreign key benar
+    }
+
     /**
      * Get the attributes that should be cast.
      *

@@ -81,12 +81,15 @@
             <ul>
                 @foreach($users as $user)
                     <li>
-                        {{ $user->name }} <span>- {{ $user->email }}</span>
+                        <a href="{{ route('users.show', $user->id) }}">
+                            {{ $user->name }} <span>- {{ $user->email }}</span>
+                        </a>
                     </li>
                 @endforeach
             </ul>
         @endforeach
     </div>
+
 
 </body>
 </html>

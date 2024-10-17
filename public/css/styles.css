@@ -274,3 +274,19 @@ select:focus, input:focus {
     border-radius: 50%; /* Make it round */
     background: white; /* Color of the dot */
 }
+
+.btn-delete {
+    background-color: #FF6B6B; /* Merah */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 10px; /* Jarak antara nama pengguna dan tombol */
+    transition: background-color 0.3s ease;
+}
+
+.btn-delete:hover {
+    background-color: #E04848; /* Warna saat hover */
+}
