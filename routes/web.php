@@ -6,6 +6,9 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\PresenceController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/scan-qrcode', [QrCodeController::class, 'scanPage']);
+
+
 Route::get('/', [EventController::class, 'index'])->name('events.index');
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
 Route::post('/', [EventController::class, 'store'])->name('events.store');
@@ -28,7 +31,6 @@ Route::post('/{event}/presences', [PresenceController::class, 'store'])->name('p
 Route::get('/qrcode/{id}', [QrCodeController::class, 'showWithDownloadButton']);
 Route::get('/download/{id}', [QrCodeController::class, 'download']);
 
-Route::get('/scan-qrcode', [QrCodeController::class, 'scanPage']);
 
 Route::resource('events', EventController::class);
 

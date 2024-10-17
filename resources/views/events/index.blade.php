@@ -27,7 +27,7 @@
 
                 <!-- Edit dan Delete button berada dalam div agar rapi -->
                 <div class="event-actions">
-                    <a href="{{ route('events.edit', $event->id) }}">
+                    <a href="{{ route('events.edit', $event->id) }}" style="text-decoration: none;">
                         <button type="button" class="btn-edit">Edit</button>
                     </a>
 

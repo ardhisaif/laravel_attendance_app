@@ -4,7 +4,6 @@
 /* Navbar Styling */
 .navbar {
     padding: 10px 0;
-    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
     display: flex;
     justify-content: center;
 }
@@ -106,24 +105,6 @@ button {
     font-size: 14px;
     font-weight: bold;
     transition: background-color 0.3s ease;
-}
-
-.btn-edit {
-    background-color: #4A90E2;
-    color: white;
-}
-
-.btn-edit:hover {
-    background-color: #357ABD;
-}
-
-.btn-delete {
-    background-color: #FF6B6B;
-    color: white;
-}
-
-.btn-delete:hover {
-    background-color: #E04848;
 }
 
 /* Form Styling */
@@ -278,15 +259,81 @@ select:focus, input:focus {
 .btn-delete {
     background-color: #FF6B6B; /* Merah */
     color: white;
+    height: 40px; /* Tinggi tombol diperkecil */
+    padding: 12px 20px; /* Ukuran padding diperbesar */
     border: none;
     border-radius: 6px;
-    padding: 5px 10px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
     margin-left: 10px; /* Jarak antara nama pengguna dan tombol */
+    display: flex;
+    align-items: center;
     transition: background-color 0.3s ease;
 }
 
 .btn-delete:hover {
     background-color: #E04848; /* Warna saat hover */
+}
+
+/* Edit Button Styling */
+.btn-edit {
+    background-color: #4A90E2; /* Warna latar belakang */
+    color: white;
+    padding: 12px 20px; /* Ukuran padding diperbesar */
+    border-radius: 6px; /* Membulatkan sudut tombol */
+    font-size: 16px; /* Ukuran font sedikit diperbesar */
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Efek transisi */
+}
+
+.btn-edit:hover {
+    background-color: #357ABD; /* Warna saat hover */
+    transform: scale(1.05); /* Efek perbesaran saat hover */
+}
+
+.btn-edit:active {
+    transform: scale(0.95); /* Efek klik (mengecilkan sedikit tombol) */
+}
+
+/* Back to User List Button Styling */
+.btn-create {
+    width: auto; /* Lebar tombol sesuai dengan konten */
+    background-color: #4A90E2; /* Warna latar belakang */
+    color: white;
+    padding: 18px 20px; /* Ukuran padding diperbesar */
+    border-radius: 6px; /* Membulatkan sudut tombol */
+    font-size: 16px; /* Ukuran font sedikit diperbesar */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Efek transisi */
+}
+
+.btn-create:hover {
+    background-color: #357ABD; /* Warna saat hover */
+    transform: scale(1.05); /* Efek perbesaran saat hover */
+}
+
+.btn-create:active {
+    transform: scale(0.95); /* Efek klik (mengecilkan sedikit tombol) */
+}
+
+.qr-scanner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    flex-direction: column;
+}
+
+#reader {
+    margin-bottom: 20px;
+}
+
+.status-message {
+    color: green;
+    font-weight: bold;
 }

@@ -51,7 +51,7 @@
         </select><br><br>
 
         <label for="date_of_birth">Date of Birth:</label>
-        <input type="date" id="date_of_birth" name="date_of_birth" required><br><br>
+        <input type="date" id="date_of_birth" name="date_of_birth" value="" ><br><br>
 
         <button type="submit">Submit</button>
     </form>
@@ -81,7 +81,7 @@
             <ul>
                 @foreach($users as $user)
                     <li>
-                        <a href="{{ route('users.show', $user->id) }}">
+                        <a href="{{ route('users.show', $user->id) }}" style="text-decoration: none; color: black;">
                             {{ $user->name }} <span>- {{ $user->email }}</span>
                         </a>
                     </li>

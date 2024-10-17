@@ -3,9 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <title>Edit Event</title>
 </head>
 <body>
+
+    <div class="navbar">
+        <a href="{{ route('events.index') }}">Events</a>
+        <a href="{{ route('users.index') }}">Users</a>
+    </div>
+
     <h1>Edit Event</h1>
 
     @if($errors->any())
@@ -16,7 +23,7 @@
         </ul>
     @endif
 
-    <form action="{{ route('events.update', $event->id) }}" method="POST">
+    <form action="{{ route('events.update', $event->id) }}" method="POST" class="event-form">
         @csrf
         @method('PUT')
 

@@ -20,7 +20,6 @@ class UserController extends Controller
             'name' => 'required|string|max:355',
             'kelompok_id' => 'required|integer',
             'category_of_age' => 'required|integer',
-            'date_of_birth' => 'required|date',
         ]);
 
         // Generate user ID
