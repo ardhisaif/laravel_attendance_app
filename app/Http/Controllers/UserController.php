@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Kelompok;
 use Illuminate\Http\Request;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class UserController extends Controller
 {
@@ -70,7 +71,9 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        return view('users.show', compact('user'));
+
+        $qrcode = QrCode::size(150)->generate(route('users.show', $id));
+        return view('users.show', compact('user', 'qrcode'));
     }
 
     public function destroy($id)

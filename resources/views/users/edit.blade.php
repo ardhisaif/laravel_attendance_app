@@ -45,7 +45,13 @@
             </select>
 
             <label for="category_of_age">Category of Age:</label>
-            <input type="number" name="category_of_age" id="category_of_age" value="{{ old('category_of_age', $user->category_of_age) }}" required>
+            <select type="number" id="category_of_age" name="category_of_age" required>
+                <option value="4">Usia Nikah</option>
+                <option value="2">Pra-remaja</option>
+                <option value="3">Remaja</option>
+                <option value="1">Caberawit</option>
+                <option value="5">Umum</option>
+            </select><br><br>
 
             <label for="date_of_birth">Date of Birth:</label>
             <input type="date" name="date_of_birth" id="date_of_birth" value="{{ old('date_of_birth', $user->date_of_birth) }}">
