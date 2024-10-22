@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Presence for {{ $event->name }}</title>
     <!-- Hubungkan dengan file CSS eksternal -->
-    <link rel="stylesheet" type="" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" type="" href="/css/styles.css">
 
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript" ></script>
 </head>
@@ -25,8 +25,10 @@
         </div>
     </div>
 
+    <br>
+    <br>
     <!-- Form untuk mencatat kehadiran -->
-    <h2>Record Attendance</h2>
+    <h2>Form Absensi</h2>
     <form id="attendance-form" action="{{ route('presences.store', $event->id) }}" method="POST" class="event-form">
         @csrf
             <!-- Input tersembunyi untuk menyimpan user_id dari hasil scan -->
@@ -35,9 +37,8 @@
             <input type="hidden" name="status" value="1"> <!-- Status 1 untuk 'Hadir' -->
 
         <!-- Filter Kelompok -->
-        <label for="kelompok_id">Select Kelompok:</label>
+        <label for="kelompok_id">Pilih Kelompok:</label>
         <select name="kelompok_id" id="kelompok_id" required>
-            <option value="">-- Select Kelompok --</option>
             @foreach($kelompoks as $kelompok)
                 <option value="{{ $kelompok->id }}">{{ $kelompok->name }}</option>
             @endforeach
@@ -54,34 +55,115 @@
             <option value="3">Sakit</option>
         </select>
 
-        <label for="description">Description:</label>
+        <label for="description">Deskripsi:</label>
         <input type="text" id="description" name="description">
 
-        <button type="submit">Submit Attendance</button>
+        <button type="submit" class="btn-create">Submit</button>
     </form>
+    <br>
+    <br>
+
+    @if($presences->isNotEmpty())
+        <h1>Rekap Absensi {{ $event->name }}</h1>
+        <div class="table-responsive">
+            <table border="1" cellpadding="10" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Keterangan</th>
+                        @foreach($kelompoks as $kelompok)
+                            <th>{{ $kelompok->name }}</th>
+                        @endforeach
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                        // Variabel untuk menyimpan total global
+                        $totalHadir = 0;
+                        $totalIzin = 0;
+                        $totalSakit = 0;
+                    @endphp
+
+                    {{-- Baris Hadir --}}
+                    <tr>
+                        <td>Hadir</td>
+                        @foreach($kelompoks as $kelompok)
+                            @php
+                                $hadirCount = $presences->where('user.kelompok_id', $kelompok->id)
+                                                        ->where('status', 1)
+                                                        ->count();
+                                $totalHadir += $hadirCount;
+                            @endphp
+                            <td>{{ $hadirCount }}</td>
+                        @endforeach
+                        <td>{{ $totalHadir }}</td>
+                    </tr>
+
+                    {{-- Baris Izin --}}
+                    <tr>
+                        <td>Izin</td>
+                        @foreach($kelompoks as $kelompok)
+                            @php
+                                $izinCount = $presences->where('user.kelompok_id', $kelompok->id)
+                                                    ->where('status', 2)
+                                                    ->count();
+                                $totalIzin += $izinCount;
+                            @endphp
+                            <td>{{ $izinCount }}</td>
+                        @endforeach
+                        <td>{{ $totalIzin }}</td>
+                    </tr>
+
+                    {{-- Baris Sakit --}}
+                    <tr>
+                        <td>Sakit</td>
+                        @foreach($kelompoks as $kelompok)
+                            @php
+                                $sakitCount = $presences->where('user.kelompok_id', $kelompok->id)
+                                                        ->where('status', 3)
+                                                        ->count();
+                                $totalSakit += $sakitCount;
+                            @endphp
+                            <td>{{ $sakitCount }}</td>
+                        @endforeach
+                        <td>{{ $totalSakit }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    @endif
+
+    <br>
+    <br>
 
     <!-- Tampilkan daftar kehadiran -->
-    <h1>Presence List for {{ $event->name }}</h1>
 
     @if(session('success'))
         <p>{{ session('success') }}</p>
     @endif
 
-    <ul class="user-list">
-        @foreach($presences as $presence)
-            <li>
-                {{ $presence->user->name }} -
-                @if($presence->status == 1)
-                    <span class="status-hadir" style="color: green;">Hadir</span>
-                @elseif($presence->status == 2)
-                    <span class="status-izin" style="color: rgb(138, 138, 0);">Izin</span>
-                @elseif($presence->status == 3)
-                    <span class="status-sakit" style="color: rgb(128, 83, 0);">Sakit</span>
-                @endif
-                {{-- - {{ $presence->description }} --}}
-            </li>
-        @endforeach
-    </ul>
+    @if($presences->isNotEmpty())
+        <h1>Daftar Absensi {{ $event->name }}</h1>
+        <div class="presence-list">
+            @foreach($presences->groupBy('user.kelompok_id') as $kelompokId => $kelompokPresences)
+                <h3 class="group-name">{{ $kelompoks->where('id', $kelompokId)->first()->name }}</h3>
+                <ul class="user-list">
+                    @foreach($kelompokPresences as $presence)
+                        <li>
+                            {{ $presence->user->name }} -
+                            @if($presence->status == 1)
+                                <span class="status-hadir" style="color: green;">Hadir</span>
+                            @elseif($presence->status == 2)
+                                <span class="status-izin" style="color: rgb(138, 138, 0);">Izin</span>
+                            @elseif($presence->status == 3)
+                                <span class="status-sakit" style="color: rgb(128, 83, 0);">Sakit</span>
+                            @endif
+                        </li>
+                    @endforeach
+                </ul>
+            @endforeach
+        </div>
+    @endif
 
     @if($errors->any())
         <div style="color:red;">

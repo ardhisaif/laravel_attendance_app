@@ -45,6 +45,6 @@ class PresenceController extends Controller
             'description' => $request->description,
         ]);
 
-        return redirect()->route('presences.index', $event->id)->with('success', 'Attendance recorded successfully.');
+        return redirect()->route('presences.index', $event->id)->with('success');
     }
 }

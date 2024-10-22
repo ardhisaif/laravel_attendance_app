@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event List</title>
     <!-- Menghubungkan dengan file CSS eksternal -->
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
     <!-- Navbar -->
@@ -13,8 +13,9 @@
         <a href="{{ route('events.index') }}">Events</a>
         <a href="{{ route('users.index') }}">Users</a>
     </div>
-
-    <h1>List of Events</h1>
+    @if($events->isNotEmpty())
+        <h1>Daftar Acara</h1>
+    @endif
 
     @if(session('success'))
         <p class="success-message">{{ session('success') }}</p>
@@ -31,11 +32,6 @@
                         <button type="button" class="btn-edit">Edit</button>
                     </a>
 
-                    <form action="{{ route('events.destroy', $event->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn-delete" onclick="return confirm('Are you sure you want to delete this event?')">Delete</button>
-                    </form>
                 </div>
             </li>
         @endforeach
@@ -43,13 +39,13 @@
 
     <br/>
 
-    <h2>Create New Event</h2>
+    <h2>Membuat Acara Baru</h2>
     <form action="{{ route('events.store') }}" method="POST" class="event-form">
         @csrf
-        <label for="name">Event Name:</label>
+        <label for="name">Nama Acara:</label>
         <input type="text" id="name" name="name" required><br><br>
 
-        <label for="category_of_age">Category of Age:</label>
+        <label for="category_of_age">Kategori Umur:</label>
         <select id="category_of_age" name="category_of_age" required>
             <option value="1">Caberawit</option>
             <option value="2">Pra-remaja</option>
@@ -58,7 +54,7 @@
             <option value="5">Umum</option>
         </select><br><br>
 
-        <label for="date">Date:</label>
+        <label for="date">Tanggal Acara:</label>
         <input type="date" id="date" name="date" required><br><br>
 
         <button type="submit" class="btn-create">Create Event</button>

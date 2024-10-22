@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit User</title>
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 <body>
     <!-- Navbar -->
@@ -32,7 +32,7 @@
         @method('PUT')
 
         <div class="event-form">
-            <label for="name">Name:</label>
+            <label for="name">Nama:</label>
             <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}" required>
 
             <label for="kelompok_id">Kelompok:</label>
@@ -44,22 +44,22 @@
                 @endforeach
             </select>
 
-            <label for="category_of_age">Category of Age:</label>
+            <label for="category_of_age">Kategori umur:</label>
             <select type="number" id="category_of_age" name="category_of_age" required>
                 <option value="4">Usia Nikah</option>
                 <option value="2">Pra-remaja</option>
                 <option value="3">Remaja</option>
                 <option value="1">Caberawit</option>
                 <option value="5">Umum</option>
-            </select><br><br>
+            </select><br>
 
-            <label for="date_of_birth">Date of Birth:</label>
+            <label for="date_of_birth">Tanggal lahir:</label>
             <input type="date" name="date_of_birth" id="date_of_birth" value="{{ old('date_of_birth', $user->date_of_birth) }}">
 
             <label for="email">Email:</label>
             <input type="email" name="email" id="email" value="{{ old('email', $user->email) ?? '' }}">
 
-            <button type="submit" class="btn-save">Save</button>
+            <button type="submit" class="btn-edit">Simpan</button>
         </div>
     </form>
 

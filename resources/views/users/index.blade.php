@@ -6,7 +6,7 @@
     <title>User Management</title>
 
     <!-- Hubungkan dengan file CSS eksternal -->
-    <link rel="stylesheet" type="" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" type="" href="/css/styles.css">
 </head>
 <body>
     <!-- Navbar -->
@@ -15,33 +15,32 @@
         <a href="{{ route('users.index') }}">Users</a>
     </div>
 
-    <h1>Create User</h1>
+    <h1>Input User</h1>
     <form action="{{ route('users.store') }}" method="POST" class="event-form">
         @csrf
-        <label for="name">Name:</label>
+        <label for="name">Nama:</label>
         <input type="text" id="name" name="name" required><br><br>
 
         <!-- Dropdown untuk memilih Kelompok -->
         <label for="kelompok_id">Kelompok:</label>
         <select id="kelompok_id" name="kelompok_id" required>
-            <option value="" disabled selected>Select a group</option>
             @foreach($kelompoks as $kelompok)
                 <option value="{{ $kelompok->id }}">{{ $kelompok->name }}</option>
             @endforeach
         </select><br><br>
 
-        <label>Gender:</label><br>
-        <label class="container">Male
+        <label>Jenis Kelamin:</label>
+        <label class="container">Laki-laki
             <input type="radio" id="male" name="gender" value="1" required>
             <span class="checkmark"></span>
         </label>
-        <label class="container">Female
+        <label class="container">Perempuan
             <input type="radio" id="female" name="gender" value="2" required>
             <span class="checkmark"></span>
         </label>
+        <br>
 
-
-        <label for="category_of_age">Category of Age:</label>
+        <label for="category_of_age">Kategori umur:</label>
         <select type="number" id="category_of_age" name="category_of_age" required>
             <option value="4">Usia Nikah</option>
             <option value="2">Pra-remaja</option>
@@ -50,10 +49,10 @@
             <option value="5">Umum</option>
         </select><br><br>
 
-        <label for="date_of_birth">Date of Birth:</label>
+        <label for="date_of_birth">Tanggal lahir:</label>
         <input type="date" id="date_of_birth" name="date_of_birth" value="" ><br><br>
 
-        <button type="submit">Submit</button>
+        <button type="submit" class="btn-edit">Kirim</button>
     </form>
 
     <!-- Menampilkan pesan sukses jika ada -->
@@ -74,10 +73,9 @@
         </div>
     @endif
 
-    <h2>List of Users</h2>
     <div class="user-list">
         @foreach($groupedUsers as $kelompokId => $users)
-            <h3>Group: {{ $kelompoks->where('id', $kelompokId)->first()->name }}</h3>
+            <h3>Kelompok {{ $kelompoks->where('id', $kelompokId)->first()->name }}</h3>
             <ul>
                 @foreach($users as $user)
                     <li>
@@ -90,6 +88,28 @@
         @endforeach
     </div>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+        // Pilih semua elemen kelompok (h3) di dalam user list
+        const kelompokHeaders = document.querySelectorAll(".user-list h3");
 
+        kelompokHeaders.forEach(header => {
+            header.addEventListener("click", function() {
+                // Temukan ul (list pengguna) yang terkait dengan header ini
+                const userList = this.nextElementSibling;
+
+                // Toggle class active untuk membuka atau menutup dropdown
+                userList.classList.toggle("active");
+
+                // Alternatif: Mengatur max-height secara dinamis berdasarkan tinggi konten
+                if (userList.style.maxHeight) {
+                    userList.style.maxHeight = null; // Tutup dropdown
+                } else {
+                    userList.style.maxHeight = userList.scrollHeight + "px"; // Buka dropdown
+                }
+            });
+        });
+    });
+    </script>
 </body>
 </html>

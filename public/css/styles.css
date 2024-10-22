@@ -1,6 +1,66 @@
 /* Font Import */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
+/* Media query untuk layar mobile (misalnya, kurang dari 768px) */
+@media (max-width: 768px) {
+    /* Navbar Styling */
+    .navbar {
+        flex-direction: column; /* Ubah layout menjadi kolom */
+        padding: 15px;
+    }
+
+    .navbar a {
+        margin: 10px 0; /* Memberi jarak antar tombol secara vertikal */
+        font-size: 14px; /* Kecilkan ukuran font */
+        padding: 8px 15px; /* Sesuaikan padding */
+    }
+
+    /* H1 dan H2 untuk mobile */
+    h1, h2 {
+        font-size: 22px; /* Ukuran font lebih kecil */
+    }
+
+    /* Event List untuk mobile */
+    .event-list li {
+        flex-direction: column; /* Ubah layout dari row ke column */
+        align-items: flex-start; /* Rata kiri */
+    }
+
+    .event-actions {
+        margin-left: 0; /* Hilangkan margin */
+        width: 100%; /* Ambil lebar penuh */
+        justify-content: space-between; /* Jarak antar tombol */
+    }
+
+    /* Button Styling untuk mobile */
+    button, .btn-edit, .btn-create {
+        font-size: 14px; /* Ukuran font lebih kecil */
+        padding: 10px; /* Kecilkan padding */
+    }
+
+    .user-list ul {
+        max-height: none; /* Pastikan dropdown dapat terbuka penuh */
+    }
+
+    .table-responsive {
+        width: 100%;
+        overflow-x: auto; /* Memungkinkan geser horizontal */
+        -webkit-overflow-scrolling: touch; /* Efek geser yang halus untuk perangkat iOS */
+    }
+
+    table {
+        width: 100%; /* Tetapkan lebar tabel agar bisa di-scroll */
+        min-width: 800px; /* Pastikan tabel lebih lebar dari layar */
+        border-collapse: collapse;
+    }
+
+    th, td {
+        white-space: nowrap; /* Cegah teks terpotong atau memakan banyak baris */
+        padding: 10px;
+        text-align: left;
+    }
+}
+
 .navbar a {
     color: #4A90E2; /* Change text color to match the new background */
     text-align: center;
@@ -107,11 +167,13 @@ h1, h2 {
 
 /* Label and Value Styling */
 .event-form label {
+    font-weight: bold;
     display: block;
     font-weight: 600;
     margin-bottom: 5px;
     font-size: 16px;
     color: #555;
+
 }
 
 .event-form p {
@@ -305,7 +367,7 @@ button, .btn-edit, .btn-delete, .btn-create {
 .btn-delete {
     background-color: #FF6B6B; /* Merah */
     color: white;
-    height: 40px; /* Tinggi tombol diperkecil */
+    height: 50px; /* Tinggi tombol diperkecil */
     padding: 12px 20px; /* Ukuran padding diperbesar */
     border: none;
     border-radius: 6px;
@@ -371,7 +433,7 @@ button, .btn-edit, .btn-delete, .btn-create {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh;
+    height: 50vh;
     flex-direction: column;
 }
 
@@ -382,4 +444,144 @@ button, .btn-edit, .btn-delete, .btn-create {
 .status-message {
     color: green;
     font-weight: bold;
+}
+
+/* Styling untuk dropdown */
+.user-list ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out; /* Transisi animasi */
+}
+
+/* Ketika dropdown aktif */
+.user-list ul.active {
+    max-height: 500px; /* Atur tinggi maksimum dropdown (ubah sesuai kebutuhan) */
+    transition: max-height 0.6s ease-in;
+}
+
+/* Indikator ketika kelompok diklik */
+.user-list h3 {
+    cursor: pointer;
+    transition: color 0.3s ease; /* Animasi pada teks judul */
+}
+
+.user-list h3:hover {
+    color: #357ABD; /* Ubah warna ketika hover */
+}
+
+.group-name {
+    max-width: 800px; /* Maksimum lebar untuk daftar pengguna */
+    margin: 40px auto; /* Margin otomatis untuk center */
+    font-size: 22px;
+    font-weight: bold;
+    color: #4A90E2; /* Warna biru untuk nama kelompok */
+    text-transform: uppercase; /* Ubah teks menjadi huruf kapital */
+    letter-spacing: 1px; /* Beri sedikit jarak antar huruf */
+    transition: color 0.3s ease; /* Efek transisi saat hover */
+}
+
+.group-name:hover {
+    color: #357ABD; /* Ubah warna saat di-hover */
+}
+
+/* Presence List Styling */
+.presence-list {
+    max-width: 800px; /* Maksimum lebar untuk daftar presensi */
+    margin: 40px auto; /* Margin otomatis untuk center */
+    padding: 20px; /* Ruang dalam untuk tampilan yang lebih baik */
+    background-color: white; /* Warna latar belakang putih */
+    border-radius: 8px; /* Membulatkan sudut */
+    border: 1px solid #ddd; /* Border tipis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan untuk efek kedalaman */
+}
+
+.presence-list h1 {
+    color: #4A90E2; /* Warna biru sesuai dengan tema */
+    font-size: 24px; /* Ukuran font judul */
+    font-weight: 600; /* Tebal untuk judul */
+    text-align: center; /* Rata tengah judul */
+    margin-bottom: 30px; /* Ruang bawah antara judul dan konten */
+}
+
+.presence-list h3 {
+    color: #4A90E2; /* Warna biru untuk nama kelompok */
+    font-size: 20px; /* Ukuran font untuk nama kelompok */
+    font-weight: bold; /* Tebal untuk menonjolkan nama kelompok */
+    margin-bottom: 15px; /* Jarak bawah */
+    text-align: left; /* Rata kiri nama kelompok */
+    text-transform: uppercase; /* Ubah teks menjadi huruf kapital */
+    letter-spacing: 1px; /* Jarak antar huruf */
+}
+
+.presence-list ul {
+    list-style-type: none; /* Menghilangkan bullet points */
+    padding: 0; /* Menghilangkan padding default */
+    margin: 0; /* Menghilangkan margin default */
+}
+
+.presence-list li {
+    display: flex; /* Menggunakan flexbox untuk layout */
+    justify-content: space-between; /* Memisahkan nama dan status */
+    align-items: center; /* Memastikan isi item rata tengah */
+    padding: 15px; /* Ruang dalam untuk item */
+    margin-bottom: 10px; /* Jarak antar item */
+    background-color: #f9f9f9; /* Warna latar belakang */
+    border-radius: 6px; /* Membulatkan sudut item */
+    border: 1px solid #ddd; /* Border tipis */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Bayangan lembut */
+}
+
+.presence-list li:last-child {
+    margin-bottom: 0; /* Hilangkan margin untuk item terakhir */
+}
+
+.presence-list .status-hadir {
+    color: green; /* Warna hijau untuk status hadir */
+    font-weight: bold; /* Tebal untuk status */
+}
+
+.presence-list .status-izin {
+    color: rgb(138, 138, 0); /* Warna kuning untuk status izin */
+    font-weight: bold; /* Tebal untuk status */
+}
+
+.presence-list .status-sakit {
+    color: rgb(128, 83, 0); /* Warna coklat untuk status sakit */
+    font-weight: bold; /* Tebal untuk status */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+table, th, td {
+    border: 1px solid #ddd;
+}
+th, td {
+    padding: 12px;
+    text-align: center;
+}
+th {
+    background-color: #4A90E2;
+    color: white;
+    font-weight: bold;
+}
+td {
+    font-size: 16px;
+    color: #333;
+}
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+tr:nth-child(odd) {
+    background-color: #fff;
+}
+.total {
+    font-weight: bold;
+    background-color: #4A90E2;
+    color: white;
 }

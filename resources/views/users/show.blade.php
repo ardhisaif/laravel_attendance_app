@@ -6,7 +6,7 @@
     <title>Detail User</title>
 
     <!-- Hubungkan dengan file CSS eksternal -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 <body>
     <!-- Navbar -->
@@ -27,7 +27,7 @@
 
             <!-- Bagian QR Code -->
             <div style="text-align: center;">
-                {!! $qrcode !!}
+                {!! QrCode::size(200)->generate($user->id) !!}
             </div>
 
 
@@ -71,7 +71,7 @@
         @endif
 
         <div class="event-actions">
-            <a href="{{ route('users.edit', $user->id) }}" class="btn-edit">Edit</a>
+            <a href="{{ route('users.edit', $user->id) }}" class="btn-edit">Edit user</a>
             <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display: inline;">
                 @csrf
                 @method('DELETE')
