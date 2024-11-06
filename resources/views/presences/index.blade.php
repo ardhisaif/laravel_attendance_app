@@ -37,8 +37,9 @@
             <input type="hidden" name="status" value="1"> <!-- Status 1 untuk 'Hadir' -->
 
         <!-- Filter Kelompok -->
-        <label for="kelompok_id">Pilih Kelompok:</label>
+        <label for="kelompok_id">Select Kelompok:</label>
         <select name="kelompok_id" id="kelompok_id" required>
+            <option value="">-- Select Kelompok --</option>
             @foreach($kelompoks as $kelompok)
                 <option value="{{ $kelompok->id }}">{{ $kelompok->name }}</option>
             @endforeach
@@ -151,13 +152,16 @@
                     @foreach($kelompokPresences as $presence)
                         <li>
                             {{ $presence->user->name }} -
-                            @if($presence->status == 1)
-                                <span class="status-hadir" style="color: green;">Hadir</span>
-                            @elseif($presence->status == 2)
-                                <span class="status-izin" style="color: rgb(138, 138, 0);">Izin</span>
-                            @elseif($presence->status == 3)
-                                <span class="status-sakit" style="color: rgb(128, 83, 0);">Sakit</span>
-                            @endif
+                            <form action="{{ route('presences.update', $presence->id) }}" method="POST" >
+                                @csrf
+                                @method('PUT')
+                                <select name="status" onchange="this.form.submit()" class="status-select">
+                                    <option value="1" class="option-hadir" {{ $presence->status == 1 ? 'selected' : '' }}>Hadir</option>
+                                    <option value="2" class="option-izin" {{ $presence->status == 2 ? 'selected' : '' }}>Izin</option>
+                                    <option value="3" class="option-sakit" {{ $presence->status == 3 ? 'selected' : '' }}>Sakit</option>
+                                    <option value="4" class="option-alpha" {{ $presence->status == 4 ? 'selected' : '' }}>Alpha</option>
+                                </select>
+                            </form>
                         </li>
                     @endforeach
                 </ul>

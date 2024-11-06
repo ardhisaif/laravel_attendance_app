@@ -267,6 +267,9 @@ button, .btn-edit, .btn-delete, .btn-create {
 
 /* User List Styling */
 .user-list {
+
+    list-style-type: none; /* Remove default bullet points */
+    padding: 0; /* Remove padding */
     max-width: 800px; /* Maksimum lebar untuk daftar pengguna */
     margin: 40px auto; /* Margin otomatis untuk center */
 }
@@ -487,6 +490,8 @@ button, .btn-edit, .btn-delete, .btn-create {
     color: #357ABD; /* Ubah warna saat di-hover */
 }
 
+
+
 /* Presence List Styling */
 .presence-list {
     max-width: 800px; /* Maksimum lebar untuk daftar presensi */
@@ -553,6 +558,11 @@ button, .btn-edit, .btn-delete, .btn-create {
     font-weight: bold; /* Tebal untuk status */
 }
 
+.presence-list .status-alpha {
+    color: red; /* Warna merah untuk status alpha */
+    font-weight: bold; /* Tebal untuk status */
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -574,9 +584,11 @@ td {
     font-size: 16px;
     color: #333;
 }
+
 tr:nth-child(even) {
     background-color: #f9f9f9;
 }
+
 tr:nth-child(odd) {
     background-color: #fff;
 }
@@ -585,3 +597,4 @@ tr:nth-child(odd) {
     background-color: #4A90E2;
     color: white;
 }
+

@@ -47,4 +47,22 @@ class PresenceController extends Controller
 
         return redirect()->route('presences.index', $event->id)->with('success');
     }
+
+    public function update(Request $request, $id)
+    {
+        $presence = Presence::findOrFail($id);
+
+        // Jika status adalah Alpha, hapus kehadiran
+        if ($request->status == 4) {
+            $presence->delete();
+            return redirect()->back()->with('success', 'Kehadiran berhasil dihapus.');
+        }
+
+        // Update status kehadiran
+        $presence->status = $request->status;
+        $presence->save();
+
+        return redirect()->back()->with('success', 'Status kehadiran berhasil diperbarui.');
+    }
+
 }
