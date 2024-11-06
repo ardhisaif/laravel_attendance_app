@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('presences', function (Blueprint $table) {
             $table->id(); // serial primary key
-            $table->string('user_id', 50)->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('event_id')->nullable();
             $table->integer('status')->nullable();
             $table->string('description')->nullable();

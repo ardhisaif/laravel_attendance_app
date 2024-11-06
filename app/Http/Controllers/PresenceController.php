@@ -65,4 +65,44 @@ class PresenceController extends Controller
         return redirect()->back()->with('success', 'Status kehadiran berhasil diperbarui.');
     }
 
+    public function storeWithNewUser(Request $request)
+    {
+        // Validasi input dari form
+        $request->validate([
+            'kelompok_id' => 'required|exists:kelompok,id',
+            'new_user_name' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
+        ]);
+
+        try {
+            \DB::beginTransaction();
+
+            // Buat pengguna baru
+            $user = User::create([
+                'name' => $request->input('new_user_name'),
+                'kelompok_id' => $request->input('kelompok_id'),
+            ]);
+
+            // Catat kehadiran dengan status 'Hadir' (status: 1)
+            Presence::create([
+                'user_id' => $user->id,
+                'status' => 1, // Status 1 untuk 'Hadir'
+                'description' => $request->input('description'),
+                'event_id' => $request->input('event_id') // Pastikan 'event_id' dikirim dari form
+            ]);
+
+            \DB::commit();
+
+            // Redirect ke halaman event presensi setelah sukses
+            return redirect()->route('presences.index', $request->input('event_id'))
+                            ->with('success', 'User baru berhasil ditambahkan dan absensi tercatat.');
+
+        } catch (\Exception $e) {
+            \DB::rollBack();
+
+            // Kembalikan pesan error jika gagal
+            return redirect()->back()->withErrors(['error' => 'Gagal menambahkan user dan mencatat kehadiran.']);
+        }
+    }
+
 }

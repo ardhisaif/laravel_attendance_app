@@ -23,18 +23,8 @@ class UserController extends Controller
             'category_of_age' => 'required|integer',
         ]);
 
-        // Generate user ID
-        $kelompokId = $request->kelompok_id;
-        $categoryOfAge = $request->category_of_age;
-        $dateNow = time(); // Menggunakan timestamp saat ini
-
-        // Menghasilkan ID
-        $userId = "{$kelompokId}{$categoryOfAge}{$dateNow}";
-        echo "User ID: $userId\n";
-
         // Buat pengguna baru
         User::create([
-            'id' => $userId,
             'name' => $request->name,
             'kelompok_id' => $request->kelompok_id,
             'category_of_age' => $request->category_of_age,

@@ -21,6 +21,7 @@ Route::post('/users', [UserController::class, 'store'])->name('users.store');
 Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
 Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
 
+Route::post('/users/presence', [PresenceController::class, 'storeWithNewUser'])->name('presences.storeWithNewUser');
 
 Route::get('/{event}', [EventController::class, 'show'])->name('events.show'); // Halaman absensi
 

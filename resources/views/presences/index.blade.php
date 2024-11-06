@@ -62,7 +62,43 @@
         <button type="submit" class="btn-create">Submit</button>
     </form>
     <br>
+
+    <!-- Tombol untuk membuka modal -->
+    <div style="text-align: center;">
+        <button id="openModalBtn">Absensi User Baru</button>
+    </div>
     <br>
+
+    <!-- Modal -->
+    <div id="attendanceModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Form Absensi</h2>
+            <form id="attendance-form" action="{{ route('presences.storeWithNewUser') }}" method="POST" class="event-form">
+                @csrf
+                <input type="hidden" name="status" value="1"> <!-- Status 1 untuk 'Hadir' -->
+                <input type="hidden" name="event_id" value="{{ $event->id }}">
+
+                <!-- Filter Kelompok -->
+                <label for="kelompok_id">Select Kelompok:</label>
+                <select name="kelompok_id" id="kelompok_id" required>
+                    <option value="">-- Select Kelompok --</option>
+                    @foreach($kelompoks as $kelompok)
+                        <option value="{{ $kelompok->id }}">{{ $kelompok->name }}</option>
+                    @endforeach
+                </select>
+
+                <!-- Input Nama User Baru -->
+                <label for="new_user_name">Nama User Baru:</label>
+                <input type="text" id="new_user_name" name="new_user_name" required>
+
+                <label for="description">Deskripsi:</label>
+                <input type="text" id="description" name="description">
+
+                <button type="submit" class="btn-create">Submit</button>
+            </form>
+        </div>
+    </div>
 
     @if($presences->isNotEmpty())
         <h1>Rekap Absensi {{ $event->name }}</h1>
@@ -230,6 +266,29 @@
                     });
             }
         });
+
+
+         // Dapatkan elemen modal
+        const modal = document.getElementById("attendanceModal");
+        const btn = document.getElementById("openModalBtn");
+        const span = document.getElementsByClassName("close")[0];
+
+        // Buka modal saat tombol diklik
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // Tutup modal saat tombol "X" diklik
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Tutup modal jika pengguna mengklik di luar modal
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
     </script>
 </body>
 </html>
