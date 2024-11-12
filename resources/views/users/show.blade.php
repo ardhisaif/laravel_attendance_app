@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail User</title>
-
-    <!-- Hubungkan dengan file CSS eksternal -->
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <!-- Tambahkan pustaka html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
     <!-- Navbar -->
@@ -23,19 +23,17 @@
         </div>
     @endif
 
-    <div class="event-form">
-
-            <!-- Bagian QR Code -->
-            <div style="text-align: center;">
-                {!! QrCode::size(200)->generate($user->id) !!}
-            </div>
-
+    <div id="user-details" class="event-form">
+        <!-- Bagian QR Code -->
+        <div style="text-align: center;">
+            {!! QrCode::size(200)->generate($user->id) !!}
+        </div>
 
         <label for="name">Nama:</label>
         <p>{{ $user->name }}</p>
 
         <label for="kelompok_id">Kelompok:</label>
-        <p>{{ $user->kelompok->name }}</p> <!-- Asumsikan ada relasi ke kelompok -->
+        <p>{{ $user->kelompok->name }}</p>
 
         <label for="category_of_age">Kategori Umur:</label>
         <p>
@@ -80,9 +78,26 @@
         </div>
         <br>
     </div>
+
     <div style="text-align: center;">
         <a href="{{ route('users.index') }}" class="btn-create">Kembali ke daftar user</a>
     </div>
 
+    <!-- Tombol Download -->
+    <div style="text-align: center; margin-top: 20px;">
+        <button id="downloadBtn">Download as JPG</button>
+    </div>
+
+    <script>
+        document.getElementById('downloadBtn').addEventListener('click', function () {
+            const element = document.getElementById('user-details');
+            html2canvas(element).then((canvas) => {
+                const link = document.createElement('a');
+                link.href = canvas.toDataURL('image/jpeg');
+                link.download = 'user-details.jpg';
+                link.click();
+            });
+        });
+    </script>
 </body>
 </html>
