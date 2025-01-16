@@ -19,11 +19,11 @@
     <form action="{{ route('users.store') }}" method="POST" class="event-form">
         @csrf
         <label for="name">Nama:</label>
-        <input type="text" id="name" name="name" required><br><br>
+        <input class="select-form" type="text" id="name" name="name" required><br><br>
 
         <!-- Dropdown untuk memilih Kelompok -->
         <label for="kelompok_id">Kelompok:</label>
-        <select id="kelompok_id" name="kelompok_id" required>
+        <select class="select-form" id="kelompok_id" name="kelompok_id" required>
             @foreach($kelompoks as $kelompok)
                 <option value="{{ $kelompok->id }}">{{ $kelompok->name }}</option>
             @endforeach
@@ -41,7 +41,7 @@
         <br>
 
         <label for="category_of_age">Kategori umur:</label>
-        <select type="number" id="category_of_age" name="category_of_age" required>
+        <select class="select-form" type="number" id="category_of_age" name="category_of_age" required>
             <option value="4">Usia Nikah</option>
             <option value="2">Pra-remaja</option>
             <option value="3">Remaja</option>
@@ -50,7 +50,7 @@
         </select><br><br>
 
         <label for="date_of_birth">Tanggal lahir:</label>
-        <input type="date" id="date_of_birth" name="date_of_birth" value="" ><br><br>
+        <input class="select-form" type="date" id="date_of_birth" name="date_of_birth" value="" ><br><br>
 
         <button type="submit" class="btn-edit">Kirim</button>
     </form>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Greeting Card Miwir</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: 'Caveat', cursive;
+        }
+        .card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 400px;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.5s, opacity 0.5s;
+            position: absolute;
+            opacity: 0;
+            transform: translateY(100%);
+        }
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        h1 {
+            font-size: 1.8rem;
+            color: #333;
+            margin: 20px;
+        }
+        .button-container {
+            display: flex;
+            gap: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Caveat', cursive;
+            font-size: 1.2rem;
+        }
+        .back-button {
+            background-color: #f44336;
+        }
+        .circle-button {
+            width: 60px;
+            height: 60px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            cursor: pointer;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card visible" id="slide1">
+        <h1>Sawadikhap miwir si dora tukang kentut</h1>
+        <div class="button-container">
+            <button onclick="nextSlide(1)">Lanjut</button>
+        </div>
+    </div>
+    <div class="card" id="slide2">
+        <button class="circle-button" onclick="prevSlide(2)">&larr;</button>
+        <h1>Sudah berapa hari anda telah betah berada di dunia ini hingga berani mengambil keputusan bertemu dan berteman dengan diri ku rawr wkwk</h1>
+        <div class="button-container">
+            <button onclick="nextSlide(2)">Lanjut</button>
+        </div>
+    </div>
+    <div class="card" id="slide3">
+        <button class="circle-button" onclick="prevSlide(3)">&larr;</button>
+        <h1>Semoga dirimu menjadi wanita yang lebih baik lagi, tidak menjadi kupu-kupu malam yang berkeliaran di hutan wonosalam...</h1>
+        <div class="button-container">
+            <button onclick="nextSlide(3)">Lanjut</button>
+        </div>
+    </div>
+    <div class="card" id="slide4">
+        <button class="circle-button" onclick="prevSlide(4)">&larr;</button>
+        <h1>Sering-sering main ke rumah ijo ku sambil bawa teh botoh mantra keramat untuk bunda agar aku bisa di izinkan bermain dengan mu menyusuri dunia dari ujung ke ujung</h1>
+        <div class="button-container">
+            <button onclick="nextSlide(4)">Lanjut</button>
+        </div>
+    </div>
+    <div class="card" id="slide5">
+        <button class="circle-button" onclick="prevSlide(5)">&larr;</button>
+        <h1>Sekian terima kazieh beztie telah menerima diriko apa adanya ehek</h1>
+        <div class="button-container">
+            <button onclick="nextSlide(5)">Lanjut</button>
+        </div>
+    </div>
+    <div class="card" id="slide6">
+        <button class="circle-button" onclick="prevSlide(6)">&larr;</button>
+        <h1>Ditunggu next trip nya ya wir BWAKAKAKA</h1>
+        <div class="button-container">
+            <button onclick="nextSlide(6)">Lanjut</button>
+        </div>
+    </div>
+    <div class="card" id="slide7">
+        <button class="circle-button" onclick="prevSlide(7)">&larr;</button>
+        <h1>Barakallah miwir babaysssss</h1>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 7;
+
+        function nextSlide(slide) {
+            document.getElementById(`slide${slide}`).classList.remove('visible');
+            if (slide < totalSlides) {
+                document.getElementById(`slide${slide + 1}`).classList.add('visible');
+            }
+        }
+
+        function prevSlide(slide) {
+            document.getElementById(`slide${slide}`).classList.remove('visible');
+            if (slide > 1) {
+                document.getElementById(`slide${slide - 1}`).classList.add('visible');
+            }
+        }
+    </script>
+</body>
+</html>

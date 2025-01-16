@@ -28,10 +28,10 @@
         @method('PUT')
 
         <label for="name">Event Name:</label>
-        <input type="text" id="name" name="name" value="{{ $event->name }}" required><br><br>
+        <input class="select-form" type="text" id="name" name="name" value="{{ $event->name }}" required><br><br>
 
         <label for="category_of_age">Category of Age:</label>
-        <select id="category_of_age" name="category_of_age" required>
+        <select class="select-form" id="category_of_age" name="category_of_age" required>
             <option value="1" {{ $event->category_of_age == 1 ? 'selected' : '' }}>Caberawit</option>
             <option value="2" {{ $event->category_of_age == 2 ? 'selected' : '' }}>Pra-remaja</option>
             <option value="3" {{ $event->category_of_age == 3 ? 'selected' : '' }}>Remaja</option>
@@ -40,7 +40,7 @@
         </select><br><br>
 
         <label for="date">Date:</label>
-        <input type="date" id="date" name="date" value="{{ $event->date }}" required><br><br>
+        <input class="select-form" type="date" id="date" name="date" value="{{ $event->date }}" required><br><br>
 
         <button type="submit">Update Event</button>
     </form>

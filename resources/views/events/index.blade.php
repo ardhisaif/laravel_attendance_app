@@ -43,10 +43,10 @@
     <form action="{{ route('events.store') }}" method="POST" class="event-form">
         @csrf
         <label for="name">Nama Acara:</label>
-        <input type="text" id="name" name="name" required><br><br>
+        <input class="select-form" type="text" id="name" name="name" required><br><br>
 
         <label for="category_of_age">Kategori Umur:</label>
-        <select id="category_of_age" name="category_of_age" required>
+        <select class="select-form" id="category_of_age" name="category_of_age" required>
             <option value="1">Caberawit</option>
             <option value="2">Pra-remaja</option>
             <option value="3">Remaja</option>
@@ -55,7 +55,7 @@
         </select><br><br>
 
         <label for="date">Tanggal Acara:</label>
-        <input type="date" id="date" name="date" required><br><br>
+        <input class="select-form" type="date" id="date" name="date" required><br><br>
 
         <button type="submit" class="btn-create">Create Event</button>
     </form>

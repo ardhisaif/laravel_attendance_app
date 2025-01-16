@@ -5,7 +5,7 @@
 @media (max-width: 768px) {
     /* Navbar Styling */
     .navbar {
-        flex-direction: column; /* Ubah layout menjadi kolom */
+        flex-direction: row; /* Ubah layout menjadi kolom */
         padding: 15px;
     }
 
@@ -170,7 +170,8 @@ h1, h2 {
     font-weight: bold;
     display: block;
     font-weight: 600;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    margin-top: 10px;
     font-size: 16px;
     color: #555;
 
@@ -221,12 +222,37 @@ label {
     font-size: 14px;
 }
 
-select, input {
+.status-select {
+    width: 81px;
+    padding: 7px;
+    border-radius: 6px;
+    border: 0px solid #ccc;
+    font-size: 16px;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+}
+
+.status-hadir {
+    background-color: #93eb93; /* Hijau */
+    color: white;
+}
+
+.status-izin {
+    background-color: #fff170; /* Kuning */
+    color: black;
+}
+
+.status-sakit {
+    background-color: #facc88; /* Oren */
+    color: white;
+}
+
+
+.select-form {
     width: 100%;
     padding: 12px;
-    margin-bottom: 20px;
     border-radius: 6px;
-    border: 1px solid #ccc;
+    border: 1px solid #f0f0f0;
     font-size: 16px;
     box-sizing: border-box;
     background-color: #f9f9f9;
@@ -244,6 +270,7 @@ button, .btn-edit, .btn-delete, .btn-create {
     font-weight: bold;
     border: none;
     border-radius: 6px;
+    margin-top: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
@@ -258,6 +285,7 @@ button, .btn-edit, .btn-delete, .btn-create {
     border: none;
     border-radius: 6px;
     cursor: pointer;
+    margin-top: 20px;
     transition: background-color 0.3s ease;
 }
 
@@ -499,7 +527,6 @@ button, .btn-edit, .btn-delete, .btn-create {
     padding: 20px; /* Ruang dalam untuk tampilan yang lebih baik */
     background-color: white; /* Warna latar belakang putih */
     border-radius: 8px; /* Membulatkan sudut */
-    border: 1px solid #ddd; /* Border tipis */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan untuk efek kedalaman */
 }
 
@@ -531,12 +558,11 @@ button, .btn-edit, .btn-delete, .btn-create {
     display: flex; /* Menggunakan flexbox untuk layout */
     justify-content: space-between; /* Memisahkan nama dan status */
     align-items: center; /* Memastikan isi item rata tengah */
-    padding: 15px; /* Ruang dalam untuk item */
-    margin-bottom: 10px; /* Jarak antar item */
-    background-color: #f9f9f9; /* Warna latar belakang */
+    padding: 1px; /* Ruang dalam untuk item */
+    background-color: #ffffff; /* Warna latar belakang */
     border-radius: 6px; /* Membulatkan sudut item */
-    border: 1px solid #ddd; /* Border tipis */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Bayangan lembut */
+    border: 0px solid #ddd; /* Border tipis */
+    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.05); /* Bayangan lembut */
 }
 
 .presence-list li:last-child {
@@ -545,22 +571,22 @@ button, .btn-edit, .btn-delete, .btn-create {
 
 .presence-list .status-hadir {
     color: green; /* Warna hijau untuk status hadir */
-    font-weight: bold; /* Tebal untuk status */
+    font-weight: 400; /* Tebal untuk status */
 }
 
 .presence-list .status-izin {
     color: rgb(138, 138, 0); /* Warna kuning untuk status izin */
-    font-weight: bold; /* Tebal untuk status */
+    font-weight: 400; /* Tebal untuk status */
 }
 
 .presence-list .status-sakit {
     color: rgb(128, 83, 0); /* Warna coklat untuk status sakit */
-    font-weight: bold; /* Tebal untuk status */
+    font-weight: 400; /* Tebal untuk status */
 }
 
 .presence-list .status-alpha {
     color: red; /* Warna merah untuk status alpha */
-    font-weight: bold; /* Tebal untuk status */
+    font-weight: 400; /* Tebal untuk status */
 }
 
 table {

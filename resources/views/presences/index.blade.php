@@ -16,14 +16,7 @@
         <a href="{{ route('users.index') }}">Users</a>
     </div>
 
-    <h1>Scan QR Code</h1>
 
-    <div class="qr-scanner-container">
-        <div id="reader" style="width: 500px; height: 500px;"></div>
-        <div>
-            <p>Hasil Scan: <span id="result"></span></p>
-        </div>
-    </div>
 
     <br>
     <br>
@@ -38,7 +31,7 @@
 
         <!-- Filter Kelompok -->
         <label for="kelompok_id">Select Kelompok:</label>
-        <select name="kelompok_id" id="kelompok_id" required>
+        <select class="select-form" name="kelompok_id" id="kelompok_id" required>
             <option value="">-- Select Kelompok --</option>
             @foreach($kelompoks as $kelompok)
                 <option value="{{ $kelompok->id }}">{{ $kelompok->name }}</option>
@@ -47,17 +40,17 @@
 
         <!-- Select Nama User -->
         <label for="user_id">Select User:</label>
-        <select name="user_id" id="user_id" required></select>
+        <select class="select-form" name="user_id" id="user_id" required></select>
 
         <label for="status">Status:</label>
-        <select id="status" name="status" required>
+        <select class="select-form" id="status" name="status" required>
             <option value="1">Hadir</option>
             <option value="2">Izin</option>
             <option value="3">Sakit</option>
         </select>
 
         <label for="description">Deskripsi:</label>
-        <input type="text" id="description" name="description">
+        <input class="select-form" type="text" id="description" name="description">
 
         <button type="submit" class="btn-create">Submit</button>
     </form>
@@ -81,7 +74,7 @@
 
                 <!-- Filter Kelompok -->
                 <label for="kelompok_id">Select Kelompok:</label>
-                <select name="kelompok_id" id="kelompok_id" required>
+                <select class="select-form" name="kelompok_id" id="kelompok_id" required>
                     <option value="">-- Select Kelompok --</option>
                     @foreach($kelompoks as $kelompok)
                         <option value="{{ $kelompok->id }}">{{ $kelompok->name }}</option>
@@ -90,10 +83,10 @@
 
                 <!-- Input Nama User Baru -->
                 <label for="new_user_name">Nama User Baru:</label>
-                <input type="text" id="new_user_name" name="new_user_name" required>
+                <input class="select-form" type="text" id="new_user_name" name="new_user_name" required>
 
                 <label for="description">Deskripsi:</label>
-                <input type="text" id="description" name="description">
+                <input class="select-form" type="text" id="description" name="description">
 
                 <button type="submit" class="btn-create">Submit</button>
             </form>
@@ -187,7 +180,7 @@
                 <ul class="user-list">
                     @foreach($kelompokPresences as $presence)
                         <li>
-                            {{ $presence->user->name }} -
+                            ({{ $presence->user->id }}) {{ $presence->user->name }}
                             <form action="{{ route('presences.update', $presence->id) }}" method="POST" >
                                 @csrf
                                 @method('PUT')
@@ -214,6 +207,15 @@
             </ul>
         </div>
     @endif
+
+    <h1>Scan QR Code</h1>
+
+    <div class="qr-scanner-container">
+        <div id="reader" style="width: 500px; height: 500px;"></div>
+        <div>
+            <p>Hasil Scan: <span id="result"></span></p>
+        </div>
+    </div>
 
     <script type="text/javascript">
 
@@ -289,6 +291,30 @@
                 modal.style.display = "none";
             }
         }
+
+        document.querySelectorAll('.status-select').forEach(select => {
+    // Fungsi untuk mengatur kelas berdasarkan value
+    const setClass = (selectElement) => {
+        const value = selectElement.value;
+        selectElement.classList.remove('status-hadir', 'status-izin', 'status-sakit');
+        if (value === '1') {
+            selectElement.classList.add('status-hadir');
+        } else if (value === '2') {
+            selectElement.classList.add('status-izin');
+        } else if (value === '3') {
+            selectElement.classList.add('status-sakit');
+        }
+    };
+
+    // Set kelas awal berdasarkan value default
+    setClass(select);
+
+    // Tambahkan event listener untuk mengubah kelas saat value berubah
+    select.addEventListener('change', function() {
+        setClass(this);
+    });
+});
+
     </script>
 </body>
 </html>
