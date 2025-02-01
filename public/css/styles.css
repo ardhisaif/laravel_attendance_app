@@ -156,10 +156,11 @@ h1, h2 {
 .event-list li {
     background-color: white;
     padding: 20px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+    margin-top: 10px;
     border-radius: 8px;
-    border: 1px solid #ddd;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9e9e9;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -210,7 +211,9 @@ button {
     background-color: white;
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9e9e9;
+
+    /* box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); */
     max-width: 600px;
     margin: 40px auto;
 }
@@ -250,7 +253,8 @@ label {
 
 .select-form {
     width: 100%;
-    padding: 12px;
+    padding: 8px;
+    margin: 5px;
     border-radius: 6px;
     border: 1px solid #f0f0f0;
     font-size: 16px;
@@ -270,13 +274,40 @@ button, .btn-edit, .btn-delete, .btn-create {
     font-weight: bold;
     border: none;
     border-radius: 6px;
-    margin-top: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
+/* Styling untuk tombol submit dan delete */
+button[type="submit"],
+.btn-create,
+.btn-delete {
+    display: block;
+    margin: 20px auto;  /* Auto margin kiri-kanan untuk centering */
+    min-width: 116px;
+    text-align: center;
+}
+
+/* Khusus untuk container event-actions */
+.event-actions {
+    display: flex;
+    justify-content: center;  /* Memusatkan konten secara horizontal */
+    gap: 10px;  /* Memberi jarak antara tombol Edit dan Delete */
+    margin: 20px 0;  /* Margin atas dan bawah */
+}
+
+/* Styling untuk form di dalam event-actions */
+.event-actions form {
+    display: inline-block;  /* Agar form tidak memakan satu baris penuh */
+}
+
+/* Reset margin untuk tombol di dalam event-actions */
+.event-actions button[type="submit"],
+.event-actions .btn-delete {
+    margin: 0;  /* Menghapus margin default */
+}
+
 .btn-create {
-    width: 100%;
     padding: 15px;
     background-color: #4A90E2;
     color: white;
@@ -285,8 +316,14 @@ button, .btn-edit, .btn-delete, .btn-create {
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     transition: background-color 0.3s ease;
+    display: block; /* Makes the button take full width of its container */
+    margin: 20px auto; /* Centers the button horizontally with auto margins */
+    width: fit-content; /* Makes the button width fit its content */
+    min-width: 200px; /* Gives the button a minimum width */
+    text-align: center; /* Centers the text inside the button */
 }
 
 .btn-create:hover {
@@ -527,7 +564,9 @@ button, .btn-edit, .btn-delete, .btn-create {
     padding: 20px; /* Ruang dalam untuk tampilan yang lebih baik */
     background-color: white; /* Warna latar belakang putih */
     border-radius: 8px; /* Membulatkan sudut */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan untuk efek kedalaman */
+    border: 1px solid #e9e9e9;
+
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); Bayangan untuk efek kedalaman */
 }
 
 .presence-list h1 {

@@ -16,8 +16,6 @@
         <a href="{{ route('users.index') }}">Users</a>
     </div>
 
-
-
     <br>
     <br>
     <!-- Form untuk mencatat kehadiran -->
@@ -53,7 +51,20 @@
         <input class="select-form" type="text" id="description" name="description">
 
         <button type="submit" class="btn-create">Submit</button>
+
+
+        {{-- @if($errors->any())
+            <div style="color:red;">
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif --}}
     </form>
+
+
     <br>
 
     <!-- Tombol untuk membuka modal -->
@@ -180,7 +191,7 @@
                 <ul class="user-list">
                     @foreach($kelompokPresences as $presence)
                         <li>
-                            ({{ $presence->user->id }}) {{ $presence->user->name }}
+                            ~ {{ $presence->user->name }}
                             <form action="{{ route('presences.update', $presence->id) }}" method="POST" >
                                 @csrf
                                 @method('PUT')
@@ -198,20 +209,12 @@
         </div>
     @endif
 
-    @if($errors->any())
-        <div style="color:red;">
-            <ul>
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+
 
     <h1>Scan QR Code</h1>
 
     <div class="qr-scanner-container">
-        <div id="reader" style="width: 500px; height: 500px;"></div>
+        <div id="reader" style="width: 200px; height: 500px;"></div>
         <div>
             <p>Hasil Scan: <span id="result"></span></p>
         </div>
@@ -256,9 +259,16 @@
             userSelect.innerHTML = '<option value="">-- Select User --</option>';
 
             if (kelompokId) {
-                fetch(`/get-users-by-kelompok/${kelompokId}`)
+                fetch(`/get-users-by-kelompok/${kelompokId}`, {
+                    method: "get",
+                    headers: new Headers({
+                        "ngrok-skip-browser-warning": "69420",
+                    }),
+                })
                     .then(response => response.json())
                     .then(data => {
+                        // Sort users alphabetically by name
+                        data.sort((a, b) => a.name.localeCompare(b.name));
                         data.forEach(user => {
                             var option = document.createElement('option');
                             option.value = user.id;
@@ -269,8 +279,7 @@
             }
         });
 
-
-         // Dapatkan elemen modal
+        // Dapatkan elemen modal
         const modal = document.getElementById("attendanceModal");
         const btn = document.getElementById("openModalBtn");
         const span = document.getElementsByClassName("close")[0];
@@ -292,28 +301,33 @@
             }
         }
 
+        window.onload = function() {
+            document.getElementById('kelompok_id').value = '';
+            document.getElementById('user_id').innerHTML = '<option value="">-- Select User --</option>'; // Reset user_id
+        };
+
         document.querySelectorAll('.status-select').forEach(select => {
-    // Fungsi untuk mengatur kelas berdasarkan value
-    const setClass = (selectElement) => {
-        const value = selectElement.value;
-        selectElement.classList.remove('status-hadir', 'status-izin', 'status-sakit');
-        if (value === '1') {
-            selectElement.classList.add('status-hadir');
-        } else if (value === '2') {
-            selectElement.classList.add('status-izin');
-        } else if (value === '3') {
-            selectElement.classList.add('status-sakit');
-        }
-    };
+            // Fungsi untuk mengatur kelas berdasarkan value
+            const setClass = (selectElement) => {
+                const value = selectElement.value;
+                selectElement.classList.remove('status-hadir', 'status-izin', 'status-sakit');
+                if (value === '1') {
+                    selectElement.classList.add('status-hadir');
+                } else if (value === '2') {
+                    selectElement.classList.add('status-izin');
+                } else if (value === '3') {
+                    selectElement.classList.add('status-sakit');
+                }
+            };
 
-    // Set kelas awal berdasarkan value default
-    setClass(select);
+            // Set kelas awal berdasarkan value default
+            setClass(select);
 
-    // Tambahkan event listener untuk mengubah kelas saat value berubah
-    select.addEventListener('change', function() {
-        setClass(this);
-    });
-});
+            // Tambahkan event listener untuk mengubah kelas saat value berubah
+            select.addEventListener('change', function() {
+                setClass(this);
+            });
+        });
 
     </script>
 </body>

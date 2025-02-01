@@ -68,16 +68,18 @@
             <p>{{ $user->email }}</p>
         @endif
 
-        <div class="event-actions">
-            <a href="{{ route('users.edit', $user->id) }}" class="btn-edit">Edit user</a>
-            <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display: inline;">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn-delete" onclick="return confirm('Are you sure you want to delete this user?')">Hapus</button>
-            </form>
-        </div>
-        <br>
+
     </div>
+
+    <div class="event-actions">
+        <a href="{{ route('users.edit', $user->id) }}" class="btn-edit">Edit user</a>
+        <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display: inline;">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn-delete" onclick="return confirm('Are you sure you want to delete this user?')">Hapus</button>
+        </form>
+    </div>
+    <br>
 
     <div style="text-align: center;">
         <a href="{{ route('users.index') }}" class="btn-create">Kembali ke daftar user</a>
