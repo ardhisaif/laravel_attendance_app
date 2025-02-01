@@ -15,10 +15,11 @@ FastAttend is an advanced digital attendance system designed specifically for Is
 - **Responsive Design**: Optimized for both desktop and mobile use.
 
 ## Web Preview
-![Web Preview](link-to-web-preview-image)
+![Web Preview](https://github.com/user-attachments/assets/c560c151-077a-4ed6-8170-8d8f8646d9c1)
 
 ## Mobile Preview
-![Mobile Preview](link-to-mobile-preview-image)
+![WhatsApp Image 2025-02-01 at 11 01 26](https://github.com/user-attachments/assets/12e9e2c4-0a13-4b0a-aa04-fdf0096ae7af)
+
 
 ## Tech Stack
 ### Backend
